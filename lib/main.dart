@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         const Locale('ar', ''), // Arabic
         const Locale('en', ''), // English
       ],
-      title: '1111TheGorgeousLogin',
+      title: 'TheGorgeousLogin',
       theme: new ThemeData(
 
         primarySwatch: Colors.blue,
