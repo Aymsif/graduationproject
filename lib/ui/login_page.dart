@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graduationproject/style/theme.dart' as Theme;
 import 'package:graduationproject/utils/bubble_indication_painter.dart';
+
+import '../translation_strings.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -38,8 +41,11 @@ class _LoginPageState extends State<LoginPage>
 
   PageController _pageController;
 
-  Color left = Colors.black;
-  Color right = Colors.white;
+  Color left =Colors.black;
+  Color right= Colors.white;
+  Locale _appLocale = Locale('ar');
+  Locale get appLocal => _appLocale ?? Locale("ar");
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,13 +94,15 @@ class _LoginPageState extends State<LoginPage>
                         onPageChanged: (i) {
                           if (i == 0) {
                             setState(() {
-                              right = Colors.white;
-                              left = Colors.black;
+                              prefix0.debugPrint("{$i}");
+                              right  = Colors.white;
+                              left   = Colors.black;
                             });
                           } else if (i == 1) {
                             setState(() {
-                              right = Colors.black;
-                              left = Colors.white;
+                              prefix0.debugPrint("{$i}");
+                              right   = Colors.black;
+                              left  = Colors.white;
                             });
                           }
                         },
@@ -124,6 +132,8 @@ class _LoginPageState extends State<LoginPage>
     myFocusNodeEmail.dispose();
     myFocusNodeName.dispose();
     _pageController?.dispose();
+
+
     super.dispose();
   }
 
@@ -135,8 +145,7 @@ class _LoginPageState extends State<LoginPage>
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
-    _pageController = PageController();
+     _pageController = PageController();
   }
 
   void showInSnackBar(String value) {
@@ -175,9 +184,9 @@ class _LoginPageState extends State<LoginPage>
                 highlightColor: Colors.transparent,
                 onPressed: _onSignInButtonPress,
                 child: Text(
-                  "Existing",
+                  Translations.of(context).newaccount,
                   style: TextStyle(
-                      color: left,
+                      color: right,
                       fontSize: 16.0,
                       fontFamily: "WorkSansSemiBold"),
                 ),
@@ -190,9 +199,9 @@ class _LoginPageState extends State<LoginPage>
                 highlightColor: Colors.transparent,
                 onPressed: _onSignUpButtonPress,
                 child: Text(
-                  "New",
+                    Translations.of(context).existing,
                   style: TextStyle(
-                      color: right,
+                      color: left,
                       fontSize: 16.0,
                       fontFamily: "WorkSansSemiBold"),
                 ),
@@ -350,93 +359,8 @@ class _LoginPageState extends State<LoginPage>
                       fontFamily: "WorkSansMedium"),
                 )),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: new LinearGradient(
-                        colors: [
-                          Colors.white10,
-                          Colors.white,
-                        ],
-                        begin: const FractionalOffset(0.0, 0.0),
-                        end: const FractionalOffset(1.0, 1.0),
-                        stops: [0.0, 1.0],
-                        tileMode: TileMode.clamp),
-                  ),
-                  width: 100.0,
-                  height: 1.0,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Text(
-                    "Or",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontFamily: "WorkSansMedium"),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: new LinearGradient(
-                        colors: [
-                          Colors.white,
-                          Colors.white10,
-                        ],
-                        begin: const FractionalOffset(0.0, 0.0),
-                        end: const FractionalOffset(1.0, 1.0),
-                        stops: [0.0, 1.0],
-                        tileMode: TileMode.clamp),
-                  ),
-                  width: 100.0,
-                  height: 1.0,
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(top: 10.0, right: 40.0),
-                child: GestureDetector(
-                  onTap: () => showInSnackBar("Facebook button pressed"),
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: new Icon(
-                      FontAwesomeIcons.facebookF,
-                      color: Color(0xFF0084ff),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10.0),
-                child: GestureDetector(
-                  onTap: () => showInSnackBar("Google button pressed"),
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    child: new Icon(
-                      FontAwesomeIcons.google,
-                      color: Color(0xFF0084ff),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+
+
         ],
       ),
     );
@@ -459,12 +383,12 @@ class _LoginPageState extends State<LoginPage>
                 ),
                 child: Container(
                   width: 300.0,
-                  height: 360.0,
+                  height: 300.0,
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 15.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodeName,
                           controller: signupNameController,
@@ -480,7 +404,7 @@ class _LoginPageState extends State<LoginPage>
                               FontAwesomeIcons.user,
                               color: Colors.black,
                             ),
-                            hintText: "Name",
+                            hintText: Translations.of(context).username,
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                           ),
@@ -493,7 +417,7 @@ class _LoginPageState extends State<LoginPage>
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodeEmail,
                           controller: signupEmailController,
@@ -508,7 +432,7 @@ class _LoginPageState extends State<LoginPage>
                               FontAwesomeIcons.envelope,
                               color: Colors.black,
                             ),
-                            hintText: "Email Address",
+                            hintText:Translations.of(context).emailaddress,
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                           ),
@@ -521,7 +445,7 @@ class _LoginPageState extends State<LoginPage>
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: myFocusNodePassword,
                           controller: signupPasswordController,
@@ -536,7 +460,7 @@ class _LoginPageState extends State<LoginPage>
                               FontAwesomeIcons.lock,
                               color: Colors.black,
                             ),
-                            hintText: "Password",
+                            hintText: Translations.of(context).password,
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                             suffixIcon: GestureDetector(
@@ -559,7 +483,7 @@ class _LoginPageState extends State<LoginPage>
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           controller: signupConfirmPasswordController,
                           obscureText: _obscureTextSignupConfirm,
@@ -573,7 +497,7 @@ class _LoginPageState extends State<LoginPage>
                               FontAwesomeIcons.lock,
                               color: Colors.black,
                             ),
-                            hintText: "Confirmation",
+                            hintText:  Translations.of(context).passwordconfirmation,
                             hintStyle: TextStyle(
                                 fontFamily: "WorkSansSemiBold", fontSize: 16.0),
                             suffixIcon: GestureDetector(
@@ -594,7 +518,7 @@ class _LoginPageState extends State<LoginPage>
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 340.0),
+                margin: EdgeInsets.only(top: 280.0),
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[
@@ -645,12 +569,12 @@ class _LoginPageState extends State<LoginPage>
   }
 
   void _onSignInButtonPress() {
-    _pageController.animateToPage(0,
+    _pageController.animateToPage(1,
         duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 
   void _onSignUpButtonPress() {
-    _pageController?.animateToPage(1,
+    _pageController?.animateToPage(0,
         duration: Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 
